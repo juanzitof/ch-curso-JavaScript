@@ -53,6 +53,18 @@ body {
   border-left: 6px solid #2cc197;
 }
 
+#nombre {
+  display: inline-block;
+  margin-right: 10px;
+  overflow: hidden;
+
+  font-size: 14px;
+
+  text-overflow: ellipsis;
+
+  color: #fff;
+}
+
 .green-container {
   display: flex;
   width: 65%;
@@ -72,5 +84,51 @@ body {
   width: 100%;
 }
 
+.links {
+  position: relative;
 
+  display: block;
+  padding: 0;
+  margin: 20px 0;
+  margin-bottom: 30px;
 
+  font-family: "Source Sans Pro";
+  font-size: 16px;
+
+  cursor: pointer;
+  -webkit-transition: all .6s ease-in-out;
+     -moz-transition: all .6s ease-in-out;
+       -o-transition: all .6s ease-in-out;
+          transition: all .6s ease-in-out;
+  text-align: left;
+  vertical-align: text-bottom;
+
+  color: #666;
+  border: 0;
+  background-color: transparent;
+}
+
+.links:hover {
+  margin-left: 10px;
+
+  color: #2cc197;
+}
+
+#saldo-cuenta {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  overflow: hidden;
+
+  font-size: 6.5vw;
+
+  text-align: center;
+  text-overflow: ellipsis;
+}
+
+#limite-extraccion {
+  overflow: hidden;
+
+  font-size: 15px;
+
+  text-overflow: ellipsis;
+}
