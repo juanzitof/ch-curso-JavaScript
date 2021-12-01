@@ -5,14 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Banking</title>
-    <script type="module" src="../script/app.js" ></script>
+    <script type="module" src="../script/app.js"></script>
     <link rel="stylesheet" type="text/css" href="../styles/index.css" />
   </head>
   <body>
     <div class="header">
-     <button id="comenzar">INGRESAR</button>
+      <button id="btnModal">INGRESAR</button>
+      <div id="myModal" class="modalContainer">
+        <div class="modal-content">
+          <span class="close">×</span>
+          <h2>Ingrese los datos</h2>
+          <form>
+            <label>Nombre<input type="text" id="nameUser" /></label><br />
+            <label>Ingrese DNI<input type="number" /></label><br />
+            <label>Ingrese su contraseña<input type="number" id="password" /></label><br />
+            <button type="button">INGRESAR</button>
+          </form>
+        </div>
+      </div>
+
       <div class="align-left">
-        
         <span id="nombre"></span>
       </div>
     </div>
@@ -21,12 +33,12 @@
         <h1 class="you-count">Tu cuenta</h1>
         <button class="links">Depositar dinero</button>
         <button class="links">Pagar servicios</button>
-        <button class="links" >Transferir dinero</button>
+        <button class="links">Transferir dinero</button>
       </div>
       <div class="green-container">
         <div class="account-info">
           <h3 id="saldo-cuenta"></h3>
-        <p id="limite-extraccion">Tu límite de extracción es: </p>
+          <p id="limite-extraccion">Tu límite de extracción es:</p>
         </div>
       </div>
     </div>

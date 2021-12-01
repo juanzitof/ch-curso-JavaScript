@@ -1,39 +1,42 @@
 import {Usuario, Cuenta, Operacion} from "./Clases.js";
 
-function pedirDato(mensaje, validador) {
-  var datoValido = false;
-  var dato = "";
-
-  do {
-    dato = prompt(mensaje);
-    datoValido = validador(dato);
-
-    if (datoValido) {
-      break;
-    } else {
-      dato = false;
-    }
-  } while (!datoValido);
-
-  return dato;
-}
-
-function validadorNumero(numero) {
-  return !isNaN(numero);
-}
-
-function validadorNombre(nombre) {
-  return nombre !== "";
-}
-
 function formatDate(date) {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
   return `${day}/${month}/${year}`;
 }
+//Modal
 
+if(document.getElementById("btnModal")){
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("btnModal");
+  var span = document.getElementsByClassName("close")[0];
+  var body = document.getElementsByTagName("body")[0];
 
+  btn.onclick = function() {
+    modal.style.display = "block";
+    body.style.position = "static";
+    body.style.height = "100%";
+    body.style.overflow = "hidden";
+  }
+
+  span.onclick = function() {
+    modal.style.display = "none";
+    body.style.position = "inherit";
+    body.style.height = "auto";
+    body.style.overflow = "visible";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      body.style.position = "inherit";
+      body.style.height = "auto";
+      body.style.overflow = "visible";
+    }
+  }
+}
 // Main
 var main = function () {
   const usuario1 = new Usuario("Ricardo", "Jhonson", "rick", "1234");
@@ -46,11 +49,10 @@ var main = function () {
   cuenta1.addOperacion(1850, Operacion.DEPOSITO, new Date(2020, 4, 8));
   cuenta1.addOperacion(3500, Operacion.DEPOSITO, new Date(2020, 5, 4));
 
-  var userName = pedirDato("Ingrese su usuario", validadorNombre);
-
+  var userName = document.getElementById(`nameUser`).value;
   console.log(`Ingreso el nombre de: ${userName}`);
 
-  var password = pedirDato("Ingrese su clave:", validadorNumero);
+  var password = document.getElementById(`password`).value;;
   console.log(`Ingreso la clave de: ${password}`);
 
   let access = false;
@@ -69,7 +71,7 @@ var main = function () {
     cuenta1.addOperacion(deposito, Operacion.DEPOSITO, new Date());
     console.log(cuenta1.operaciones);
 
-    alert(`Su saldo actual es: $${cuenta1.getSaldo()}`);
+    //alert(`Su saldo actual es: $${cuenta1.getSaldo()}`);
 
     let historicoFormat = cuenta1
       .obtenerHistorico()
@@ -86,7 +88,7 @@ var main = function () {
 
 
 // Incio los eventos de los botones
-document.getElementById("comenzar").onclick = main;
+//document.getElementById("comenzar").onclick = main;
 
 
 
