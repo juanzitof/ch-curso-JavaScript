@@ -1,4 +1,9 @@
-import {Usuario, Cuenta, Operacion} from "./Clases.js";
+import { Usuario, Cuenta, Operacion } from "./Clases.js";
+
+var user = null;
+var access = false;
+const USER_KEY = "USER_KEY";
+var cuenta1 = null;
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -6,41 +11,98 @@ function formatDate(date) {
   const day = date.getDate();
   return `${day}/${month}/${year}`;
 }
-//Modal
 
-if(document.getElementById("btnModal")){
-  var modal = document.getElementById("myModal");
-  var btn = document.getElementById("btnModal");
-  var span = document.getElementsByClassName("close")[0];
+function checkLogin() {
+  const data = localStorage.getItem(USER_KEY);
+  console.log(data);
+  if (data) {
+    access = true;
+    const objData = JSON.parse(data);
+    console.log(objData);
+    closeModal();
+    //showOperaciones(cuenta1)
+  }
   var body = document.getElementsByTagName("body")[0];
+  body.style.display = "block";
+  
+}
 
-  btn.onclick = function() {
-    modal.style.display = "block";
-    body.style.position = "static";
-    body.style.height = "100%";
-    body.style.overflow = "hidden";
-  }
+//Mostra modal
+function openModal() {
+  var modal = document.getElementById("myModal");
+  var body = document.getElementsByTagName("body")[0];
+  modal.style.display = "block";
+  body.style.position = "static";
+  body.style.height = "100%";
+  body.style.overflow = "hidden";
+}
+//Cerrar modal
+function closeModal() {
+  var modal = document.getElementById("myModal");
+  var body = document.getElementsByTagName("body")[0];
+  modal.style.display = "none";
+  body.style.position = "inherit";
+  body.style.height = "auto";
+  body.style.overflow = "visible";
+}
+//Eventos
+function setupEvent() {
+  var btnIngreso = document.getElementById("btnModal");
+  btnIngreso.onclick = () => {
+    openModal();
+  };
+  var btnClose = document.getElementsByClassName("close")[0];
+  btnClose.onclick = function () {
+    closeModal();
+  };
 
-  span.onclick = function() {
-    modal.style.display = "none";
-    body.style.position = "inherit";
-    body.style.height = "auto";
-    body.style.overflow = "visible";
-  }
+  const form = document.getElementById("dataForm");
+  form.addEventListener("submit", enviarFormulario);
+}
 
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-      body.style.position = "inherit";
-      body.style.height = "auto";
-      body.style.overflow = "visible";
-    }
+function enviarFormulario(event) {
+  const usuario1 = new Usuario("Ricardo", "Jhonson", "rick6", "1234");
+  const cuenta1 = new Cuenta(usuario1, 0, Cuenta.generarNumeroCuenta());
+
+  event.preventDefault();
+  const form = document.getElementById("dataForm");
+  const data = new FormData(form);
+
+  const obtDataName = data.get("userName");
+  const obtDataPass = data.get("password");
+
+  if (usuario1.ingreso(obtDataName, obtDataPass)) {
+    const userData = {
+      name: usuario1.nombre,
+      lastName: usuario1.apellido,
+      userName: obtDataName,
+      numeroCuenta: cuenta1.numeroCuenta,
+    };
+
+    const userDataString = JSON.stringify(userData);
+    localStorage.setItem(USER_KEY, userDataString);
+
+    dataForm.reset();
+    const print = document.getElementById("nombre");
+    userNameLabel(print, obtDataName);
+    closeModal();
+    showOperaciones(cuenta1);
+    showSaldo();
+    
+  } else {
+    alert("Password incorrecto");
+    return;
   }
 }
-// Main
-var main = function () {
-  const usuario1 = new Usuario("Ricardo", "Jhonson", "rick", "1234");
-  const cuenta1 = new Cuenta(usuario1, 0, Cuenta.generarNumeroCuenta());
+
+//Imprimir
+function userNameLabel(container, nameUser) {
+  container.innerHTML += `Bienvenido ${nameUser}`;
+}
+
+function initData() {
+  const usuario1 = new Usuario("Ricardo", "Jhonson", "rick6", "1234");
+  cuenta1 = new Cuenta(usuario1, 0, Cuenta.generarNumeroCuenta());
 
   // Agrego operaciones para demostracion
   cuenta1.addOperacion(100, Operacion.DEPOSITO, new Date(2020, 1, 24));
@@ -49,47 +111,33 @@ var main = function () {
   cuenta1.addOperacion(1850, Operacion.DEPOSITO, new Date(2020, 4, 8));
   cuenta1.addOperacion(3500, Operacion.DEPOSITO, new Date(2020, 5, 4));
 
-  var userName = document.getElementById(`nameUser`).value;
-  console.log(`Ingreso el nombre de: ${userName}`);
-
-  var password = document.getElementById(`password`).value;;
-  console.log(`Ingreso la clave de: ${password}`);
-
-  let access = false;
-  if (usuario1.ingreso(userName, password)) {
-    access = true;
-  } else {
-    alert("Password incorrecto");
-    return;
-  }
-
-  if (access) {
-    var deposito = parseFloat(
-      pedirDato("Ingrese el valor a depositar", validadorNumero)
-    );
-    console.log(`Ingreso $${deposito} a depositar en su cuenta`);
-    cuenta1.addOperacion(deposito, Operacion.DEPOSITO, new Date());
-    console.log(cuenta1.operaciones);
-
-    //alert(`Su saldo actual es: $${cuenta1.getSaldo()}`);
-
-    let historicoFormat = cuenta1
-      .obtenerHistorico()
-      .map(({ monto, fecha, tipo }) => {
-        return `${formatDate(fecha)}       ${tipo}      $${monto}`;
-      });
-    console.log(`---------  Historico  ---------`);
-    console.log(historicoFormat.join("\n"));
-  //Manipulacion del DOM
-    document.getElementById("nombre").innerHTML = `Bienvenido/a ${userName}`;
-    document.getElementById("saldo-cuenta").innerHTML =`Su saldo es$ ${cuenta1.getSaldo()}`;
-  }
+  var body = document.getElementsByTagName("body")[0];
+  body.style.display = "block";
 }
 
+function showOperaciones(cuenta) {
+  const container = document.getElementById("operaciones-body");
+    cuenta1.obtenerHistorico().forEach((op) => {
+    container.innerHTML+=(
+      `<div class="operacion">
+        <div class="data">
+          <span class="fecha">${formatDate(op.fecha)}</span>
+          <span class="tipo">${op.tipo}</span>
+        </div>
+        <div class="monto">$${op.monto}</div>
+      </div>`
+    );
+  });
 
-// Incio los eventos de los botones
-//document.getElementById("comenzar").onclick = main;
-
-
-
+  // document.getElementById("saldo-cuenta").innerHTML =
+  // `Su saldo es$ ${cuenta1.getSaldo()}`;
+}
+function showSaldo(){
+  document.getElementById("saldo-cuenta").innerHTML =
+  `Saldo $ ${cuenta1.getSaldo()}`;
+}
+//LLamados de los eventos
+setupEvent();
+initData();
+checkLogin();
 
