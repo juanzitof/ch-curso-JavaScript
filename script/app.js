@@ -45,18 +45,16 @@ function closeModal() {
   body.style.height = "auto";
   body.style.overflow = "visible";
 }
-//Eventos
-function setupEvent() {
-  var btnIngreso = document.getElementById("btnModal");
-  btnIngreso.onclick = () => {
-    openModal();
-  };
-  var btnClose = document.getElementsByClassName("close")[0];
-  btnClose.onclick = function () {
-    closeModal();
-  };
 
-  const form = document.getElementById("dataForm");
+//Eventos
+
+function setupEvent() {
+  $("#btnModal").on("click", openModal)
+
+  $("#close").on("click", closeModal)
+ 
+
+  const form = document.getElementById("#dataForm");
   form.addEventListener("submit", enviarFormulario);
 }
 
@@ -83,7 +81,7 @@ function enviarFormulario(event) {
     localStorage.setItem(USER_KEY, userDataString);
 
     dataForm.reset();
-    const print = document.getElementById("nombre");
+    const print = $("#nombre");
     userNameLabel(print, obtDataName);
     closeModal();
     showOperaciones(cuenta1);
@@ -97,7 +95,7 @@ function enviarFormulario(event) {
 
 //Imprimir
 function userNameLabel(container, nameUser) {
-  container.innerHTML += `Bienvenido ${nameUser}`;
+  container.append(`Bienvenido ${nameUser}`)
 }
 
 function initData() {
@@ -116,9 +114,9 @@ function initData() {
 }
 
 function showOperaciones(cuenta) {
-  const container = document.getElementById("operaciones-body");
+  const container = $("#operaciones-body");
     cuenta1.obtenerHistorico().forEach((op) => {
-    container.innerHTML+=(
+    container.append(
       `<div class="operacion">
         <div class="data">
           <span class="fecha">${formatDate(op.fecha)}</span>
@@ -129,12 +127,12 @@ function showOperaciones(cuenta) {
     );
   });
 
-  // document.getElementById("saldo-cuenta").innerHTML =
-  // `Su saldo es$ ${cuenta1.getSaldo()}`;
 }
 function showSaldo(){
-  document.getElementById("saldo-cuenta").innerHTML =
-  `Saldo $ ${cuenta1.getSaldo()}`;
+  $("#saldo-cuenta").append(
+    `Saldo $ ${cuenta1.getSaldo()}`
+  )
+  
 }
 //LLamados de los eventos
 setupEvent();
