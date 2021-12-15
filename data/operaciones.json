@@ -1,0 +1,38 @@
+[
+  {
+    "Monto": "100000",
+   "Tipo": "Deposito",
+   "Fecha": "2021-01-01",
+    "operacion": 1
+  },
+  {
+    "Monto": "140000",
+   "Tipo": "Deposito",
+   "Fecha": "2021-02-01",
+    "operacion": 2
+  },
+  {
+    "Monto": "160000",
+   "Tipo": "Deposito",
+   "Fecha": "2021-03-01",
+    "operacion": 3
+  },
+  {
+    "Monto": "106000",
+   "Tipo": "Deposito",
+   "Fecha": "2021-04-01",
+    "operacion": 4
+  },
+  {
+    "Monto": "170000",
+   "Tipo": "Deposito",
+   "Fecha": "2021-05-01",
+    "operacion": 5
+  },
+  {
+    "Monto": "230000",
+   "Tipo": "Deposito",
+   "Fecha": "2021-06-01",
+    "operacion": 6
+  }
+]

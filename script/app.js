@@ -22,30 +22,40 @@ function checkLogin() {
     closeModal();
     //showOperaciones(cuenta1)
   }
-  var body = document.getElementsByTagName("body")[0];
-  body.style.display = "block";
+   var body = document.getElementsByTagName("body")[0];
+   body.style.display = "block";
   
 }
 
-//Mostra modal
+//Mostra modal de Ingreso
 function openModal() {
-  var modal = document.getElementById("myModal");
-  var body = document.getElementsByTagName("body")[0];
-  modal.style.display = "block";
-  body.style.position = "static";
-  body.style.height = "100%";
-  body.style.overflow = "hidden";
-}
-//Cerrar modal
-function closeModal() {
-  var modal = document.getElementById("myModal");
-  var body = document.getElementsByTagName("body")[0];
-  modal.style.display = "none";
-  body.style.position = "inherit";
-  body.style.height = "auto";
-  body.style.overflow = "visible";
+  $("#sombra").fadeIn(100, () => {
+    $("#modal").fadeIn(400);
+  });
 }
 
+//Cerrar modal de ingreso
+function closeModal() {
+  $("#modal").fadeOut(400, () => {
+    $("#dataForm").trigger("reset");
+    $("#sombra").fadeOut(100);
+  });
+}
+
+//Mostrar modal de deposito
+function openDeposito(){
+  $("#sombraD").fadeIn(100, () => {
+    $("#modalD").fadeIn(400);
+  });
+}
+
+//Cerrar modal de deposito
+function closeDeposito(){
+  $("#modald").fadeOut(400, () => {
+    $("#formDeposito").trigger("reset");
+    $("#sombrad").fadeOut(100);
+  });
+}
 //Eventos
 
 function setupEvent() {
@@ -54,7 +64,7 @@ function setupEvent() {
   $("#close").on("click", closeModal)
  
 
-  const form = document.getElementById("#dataForm");
+  const form = document.getElementById("dataForm");
   form.addEventListener("submit", enviarFormulario);
 }
 
@@ -113,7 +123,7 @@ function initData() {
   body.style.display = "block";
 }
 
-function showOperaciones(cuenta) {
+function showOperaciones(cuenta1) {
   const container = $("#operaciones-body");
     cuenta1.obtenerHistorico().forEach((op) => {
     container.append(
@@ -132,10 +142,14 @@ function showSaldo(){
   $("#saldo-cuenta").append(
     `Saldo $ ${cuenta1.getSaldo()}`
   )
-  
+}
+
+function addCount(){
+  $("#deposito").on("click", openDeposito)
+  $("#closeD").on("click", closeDeposito)
 }
 //LLamados de los eventos
 setupEvent();
 initData();
 checkLogin();
-
+addCount();

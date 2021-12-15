@@ -23,32 +23,7 @@
       <button id="btnModal">INGRESAR</button>
 
       <div id="myModal" class="modalContainer">
-        <div class="modal-content">
-          <span id="close" class="close">×</span>
-
-          <div class="content-form">
-            <h2 class="title">Ingrese sus datos</h2>
-
-            <form class="form-container" id="dataForm">
-              <input
-                name="userName"
-                type="text"
-                id="userName"
-                class="input-form"
-                placeholder="Nombre de usuario"
-              /><br />
-              <input
-                name="password"
-                type="password"
-                id="password"
-                class="input-form"
-                placeholder="Contraseña"
-              /><br />
-
-              <button type="submit" id="check-ok">ACEPTAR</button>
-            </form>
-          </div>
-        </div>
+       
       </div>
 
       <div class="align-left">
@@ -70,35 +45,45 @@
       </div>
     </div>
    
-    <div id="operaciones-body" class="operaciones">
-       <!--
-      <div class="operacion">
-        <div class="data">
-          <span class="fecha"></span>
-          <span class="tipo"></span>
-        </div>
+    <div id="operaciones-body" class="operaciones"></div>
 
-        <div class="monto"></div>
+    <div id="sombra">
+      <div id="modal">
+        <span id="close">X</span>
+        <form id="dataForm">
+          <h1 class="style-title">Ingrese sus Datos</h1>
+          <br />
+          <div class="mb-3">
+            <label for="form-label">Nombre de Usuario</label>
+            <input type="text" class="input-form" id="userName" />
+          </div>
+          <div class="mb-3">
+            <label for="form-label">Contraseña</label>
+            <input type="number" class="input-form" id="password">
+          </div>
+          <button type="submit" class="btn btn-primary" id="check-ok">
+            Aceptar
+          </button>
+        </form>
       </div>
-      
-      <div class="operacion">
-        <div class="data">
-          <span class="fecha">12/12/2021</span>
-          <span class="tipo">Deposito</span>
-        </div>
-        
-        <div class="monto">$1600</div>
+    </div>
+
+    <div id="sombraD">
+      <div id="modalD">
+        <span id="closeD">X</span>
+        <form id="formDeposito">
+          <h1 class="style-title">Deposito</h1>
+          <br />
+          <div class="mb-3">
+            <label for="form-label">Cantidad a depositar</label>
+            <input type="number" class="input-form" id="" />
+          </div>
+          
+          <button type="submit" class="btn btn-primary" id="deposit-ok">
+            Aceptar
+          </button>
+        </form>
       </div>
-      
-      <div class="operacion">
-        <div class="data">
-          <span class="fecha">12/12/2021</span>
-          <span class="tipo">Deposito</span>
-        </div>
-        
-        <div class="monto">$12000</div>
-      </div>
-       -->
     </div>
    
   </body>
