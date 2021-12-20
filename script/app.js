@@ -1,9 +1,11 @@
 import { Usuario, Cuenta, Operacion } from "./Clases.js";
-
 var user = null;
 var access = false;
 const USER_KEY = "USER_KEY";
 var cuenta1 = null;
+var usuario1 = null;
+
+
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -20,11 +22,11 @@ function checkLogin() {
     const objData = JSON.parse(data);
     console.log(objData);
     closeModal();
-    //showOperaciones(cuenta1)
-  }
-   var body = document.getElementsByTagName("body")[0];
-   body.style.display = "block";
   
+
+  }
+  var body = document.getElementsByTagName("body")[0];
+  body.style.display = "block";
 }
 
 //Mostra modal de Ingreso
@@ -43,39 +45,35 @@ function closeModal() {
 }
 
 //Mostrar modal de deposito
-function openDeposito(){
+function openDeposito() {
   $("#sombraD").fadeIn(100, () => {
     $("#modalD").fadeIn(400);
   });
 }
 
 //Cerrar modal de deposito
-function closeDeposito(){
-  $("#modald").fadeOut(400, () => {
+function closeDeposito() {
+  $("#modalD").fadeOut(400, () => {
     $("#formDeposito").trigger("reset");
-    $("#sombrad").fadeOut(100);
+    $("#sombraD").fadeOut(100);
   });
 }
+
 //Eventos
 
 function setupEvent() {
-  $("#btnModal").on("click", openModal)
+  $("#btnModal").on("click", openModal);
+  $("#close").on("click", closeModal);
 
-  $("#close").on("click", closeModal)
- 
-
-  const form = document.getElementById("dataForm");
+  var form = document.getElementById("dataForm");
   form.addEventListener("submit", enviarFormulario);
 }
 
 function enviarFormulario(event) {
-  const usuario1 = new Usuario("Ricardo", "Jhonson", "rick6", "1234");
-  const cuenta1 = new Cuenta(usuario1, 0, Cuenta.generarNumeroCuenta());
-
   event.preventDefault();
   const form = document.getElementById("dataForm");
-  const data = new FormData(form);
 
+  const data = new FormData(form);
   const obtDataName = data.get("userName");
   const obtDataPass = data.get("password");
 
@@ -87,15 +85,14 @@ function enviarFormulario(event) {
       numeroCuenta: cuenta1.numeroCuenta,
     };
 
-    const userDataString = JSON.stringify(userData);
+    var userDataString = JSON.stringify(userData);
     localStorage.setItem(USER_KEY, userDataString);
 
     dataForm.reset();
-    const print = $("#nombre");
+    var print = $("#nombre");
+
     userNameLabel(print, obtDataName);
     closeModal();
-    showOperaciones(cuenta1);
-    showSaldo();
     
   } else {
     alert("Password incorrecto");
@@ -105,11 +102,30 @@ function enviarFormulario(event) {
 
 //Imprimir
 function userNameLabel(container, nameUser) {
-  container.append(`Bienvenido ${nameUser}`)
+  container.append(`Bienvenido ${nameUser}`);
 }
 
+//function obtenerOperaciones() {
+//  $.get("../data/operaciones.json", (data) => {
+ //   data.obtenerHistorico().forEach((element) => {
+ //     listaOperaciones.push(
+ //       new Operacion(element.monto, element.tipo, element.fecha)
+  //    );
+  //    $("#").append(
+  //      `<div class="operacion">
+   //     <div class="data">
+   //       <span class="fecha">${formatDate(op.fecha)}</span>
+   //       <span class="tipo">${op.tipo}</span>
+    //    </div>
+    //    <div class="monto">$${op.monto}</div>
+     // </div>`
+    //  );
+    //});
+  //});
+//}
+
 function initData() {
-  const usuario1 = new Usuario("Ricardo", "Jhonson", "rick6", "1234");
+  usuario1 = new Usuario("Ricardo", "Jhonson", "rick6", "1234");
   cuenta1 = new Cuenta(usuario1, 0, Cuenta.generarNumeroCuenta());
 
   // Agrego operaciones para demostracion
@@ -118,14 +134,11 @@ function initData() {
   cuenta1.addOperacion(1000, Operacion.DEPOSITO, new Date(2020, 3, 15));
   cuenta1.addOperacion(1850, Operacion.DEPOSITO, new Date(2020, 4, 8));
   cuenta1.addOperacion(3500, Operacion.DEPOSITO, new Date(2020, 5, 4));
-
-  var body = document.getElementsByTagName("body")[0];
-  body.style.display = "block";
 }
 
-function showOperaciones(cuenta1) {
+function showOperaciones() {
   const container = $("#operaciones-body");
-    cuenta1.obtenerHistorico().forEach((op) => {
+  cuenta1.obtenerHistorico().forEach((op) => {
     container.append(
       `<div class="operacion">
         <div class="data">
@@ -136,20 +149,44 @@ function showOperaciones(cuenta1) {
       </div>`
     );
   });
-
-}
-function showSaldo(){
-  $("#saldo-cuenta").append(
-    `Saldo $ ${cuenta1.getSaldo()}`
-  )
 }
 
-function addCount(){
-  $("#deposito").on("click", openDeposito)
-  $("#closeD").on("click", closeDeposito)
+function showSaldo() {
+  $("#saldo-cuenta").append(`Saldo $ ${cuenta1.getSaldo()}`);
 }
+
+function addCount() {
+  $("#deposito").on("click", openDeposito);
+  $("#closeD").on("click", closeDeposito);
+
+  var ingresoDepo = parseInt($("#cant-depositar").val());
+  console.log(ingresoDepo)
+  cuenta1.addOperacion(ingresoDepo)
+}
+
+//LLamado a la api
+function consultaValorDolar() {
+  const urlDolar = "https://api.bluelytics.com.ar/v2/latest";
+  $.ajax({
+    method: "GET",
+    url: urlDolar,
+    success: function (valorDolar) {
+      $("#operacion-dolar").append(
+        `<div class="style-dolar"><h1>Dolar oficial venta $ ${valorDolar.oficial.value_sell}</h1>
+        <h1>Dolar oficial compra $ ${valorDolar.oficial.value_buy}</h1>
+      <h1>Dolar blue venta  $ ${valorDolar.blue.value_sell}</h1>
+      <h1>Dolar blue compra  $ ${valorDolar.blue.value_buy}</h1></div>`
+      );
+    },
+  });
+}
+
+$("#consulta-saldo").on("click",showSaldo)
+$("#dolar").on("click", consultaValorDolar);
+$("#ultimos-movi").on("click", showOperaciones);
+
 //LLamados de los eventos
-setupEvent();
 initData();
+setupEvent();
 checkLogin();
 addCount();

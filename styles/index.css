@@ -19,8 +19,9 @@ body {
   display: flex;
   padding: 8px;
   align-items: center;
+  
 }
-
+/* Estilos de la pagina principal */
 .white-container {
   display: flex;
   width: 65%;
@@ -59,7 +60,7 @@ body {
   margin-right: 10px;
   overflow: hidden;
 
-  font-size: 14px;
+  font-size: 20px;
 
   text-overflow: ellipsis;
 
@@ -133,7 +134,7 @@ body {
 
   text-overflow: ellipsis;
 }
-
+/* Contenedor del modal */
 .modalContainer {
   display: none;
   position: fixed;
@@ -148,54 +149,31 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modalContainer .modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid lightgray;
-  border-top: 10px solid #56c298;
-  width: 60%;
-}
-
-.modalContainer .close {
-  color: black;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.modalContainer .close:hover,
-.modalContainer .close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.content-form {
-  background-color: #56c298;
-}
-.form-container {
-  width: 100%;
-}
 .title {
   padding-left: 10px;
   padding-top: 15px;
   font-size: 30px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
-.input-form {
+/* Estilos de los inputs */
+.input-NameUsu{
   margin-left: 15px;
   padding-top: 5px;
   margin-bottom: 15px;
 }
-
-#button-form {
-  margin-left: 15px;
-  border-radius: 5px;
-  background-color: blanchedalmond;
+.input-Passw{
+  margin-left: 70px;
+  padding-top: 5px;
+  margin-bottom: 15px;
 }
 
+.input-Count{
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* Tabla de historico de operaciones */
 .operacion {
   font-family: Arial, sans-serif;
   font-size: 14px;
@@ -225,8 +203,11 @@ body {
 .operacion .monto {
   font-weight: bold;
 }
+.table{
+  background-color: whitesmoke;
+}
 
-
+/* Modales */
 #sombra {
   position: absolute;
   width: 100%;
@@ -239,10 +220,10 @@ body {
 }
 #modal {
   margin: 10% auto;
-  max-width: 500px;
+  max-width: 400px;
   background-color: #FFF;
-  min-height: 300px;
-  border-radius: 8px;
+  min-height: 200px;
+  border-radius: 15px;
   display: none;
   position: relative;
   padding: 60px 30px 30px 30px;
@@ -251,12 +232,12 @@ body {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 24px;
+  font-size: 18px;
   cursor: pointer;
 }
 
-.style-title {
-  font-size: 35px;
+.title-form {
+  font-size: 20px;
   text-align: center;
   margin-top: 0px;
 }
@@ -285,6 +266,11 @@ body {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 24px;
+  font-size: 18px;
   cursor: pointer;
+}
+
+.style-dolar h1{
+  font-size: 16px;
+  align-content: center;
 }

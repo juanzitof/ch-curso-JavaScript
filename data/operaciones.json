@@ -1,38 +1,33 @@
 [
   {
-    "Monto": "100000",
-   "Tipo": "Deposito",
-   "Fecha": "2021-01-01",
-    "operacion": 1
+    "Monto": "10000",
+    "Fecha": "2021-01-01",
+    "Tipo": "Deposito"
   },
   {
-    "Monto": "140000",
-   "Tipo": "Deposito",
-   "Fecha": "2021-02-01",
-    "operacion": 2
+    "Monto": "14000",
+    "Fecha": "2021-02-01",
+    "Tipo": "Deposito"
   },
   {
-    "Monto": "160000",
-   "Tipo": "Deposito",
-   "Fecha": "2021-03-01",
-    "operacion": 3
+    "Monto": "16000",
+    "Fecha": "2021-03-01",
+    "Tipo": "Deposito"
   },
   {
-    "Monto": "106000",
-   "Tipo": "Deposito",
-   "Fecha": "2021-04-01",
-    "operacion": 4
+    "Monto": "10600",
+    "Fecha": "2021-04-01",
+    "Tipo": "Deposito"
   },
   {
-    "Monto": "170000",
-   "Tipo": "Deposito",
-   "Fecha": "2021-05-01",
-    "operacion": 5
+    "Monto": "17000",
+    "Fecha": "2021-05-01",
+    "Tipo": "Deposito"
   },
   {
-    "Monto": "230000",
-   "Tipo": "Deposito",
-   "Fecha": "2021-06-01",
-    "operacion": 6
+    "Monto": "2300",
+    "Fecha": "2021-06-01",
+    "Tipo": "Deposito"
+  
   }
 ]

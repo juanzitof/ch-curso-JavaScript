@@ -10,17 +10,15 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
     <script type="module" src="../script/app.js"></script>
     <link rel="stylesheet" type="text/css" href="../styles/index.css" />
   </head>
   <body>
     <div class="header">
-      <button id="btnModal">INGRESAR</button>
+      <button id="btnModal" class="btn btn-primary">INGRESAR</button>
 
       <div id="myModal" class="modalContainer">
        
@@ -33,13 +31,16 @@
     <div class="white-container">
       <div class="menu-container">
         <h1 class="you-count">Tu cuenta</h1>
-        <button class="links" id="deposito">Depositar dinero</button>
+        <button class="links" id="deposito">Depositar</button>
+        <button class="links" id="ultimos-movi">Ultimos movimientos</button>
+        <button class="links" id="consulta-saldo">Consultar saldo</button>
         <button class="links">Pagar servicios</button>
-        <button class="links">Transferir dinero</button>
+        <button class="links" id="dolar">Consulta valor del dolar</button>
       </div>
       <div class="green-container">
         <div class="account-info">
           <p class="style-saldo" id="saldo-cuenta"></p>
+          <span id="operacion-dolar"></span>
           <!--<p id="limite-extraccion">Tu límite de extracción es:</p> -->
         </div>
       </div>
@@ -47,19 +48,22 @@
    
     <div id="operaciones-body" class="operaciones"></div>
 
+
+
+        <!-- MODAL-->  
     <div id="sombra">
       <div id="modal">
         <span id="close">X</span>
         <form id="dataForm">
-          <h1 class="style-title">Ingrese sus Datos</h1>
+          <h1 class="title-form">Ingrese sus Datos</h1>
           <br />
           <div class="mb-3">
             <label for="form-label">Nombre de Usuario</label>
-            <input type="text" class="input-form" id="userName" />
+            <input type="text" class="input-NameUsu"  name="userName" />
           </div>
           <div class="mb-3">
             <label for="form-label">Contraseña</label>
-            <input type="number" class="input-form" id="password">
+            <input type="number" class="input-Passw" name="password">
           </div>
           <button type="submit" class="btn btn-primary" id="check-ok">
             Aceptar
@@ -71,12 +75,12 @@
     <div id="sombraD">
       <div id="modalD">
         <span id="closeD">X</span>
-        <form id="formDeposito">
-          <h1 class="style-title">Deposito</h1>
+        <form>
+          <h1 class="title-form">Deposito</h1>
           <br />
-          <div class="mb-3">
+          <div>
             <label for="form-label">Cantidad a depositar</label>
-            <input type="number" class="input-form" id="" />
+            <input type="number" class="input-Count" id="cant-depositar" />
           </div>
           
           <button type="submit" class="btn btn-primary" id="deposit-ok">
@@ -85,6 +89,8 @@
         </form>
       </div>
     </div>
+
+      
    
   </body>
 </html>
