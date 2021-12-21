@@ -41,7 +41,7 @@ export class Cuenta {
   }
 
   addOperacion(monto, tipo, fecha) {
-    let operacion = new Operacion(monto, fecha, tipo);
+    let operacion = new Operacion(monto, tipo, fecha );
     this.operaciones.push(operacion);
     this.saldo += monto;
   }
