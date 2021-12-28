@@ -68,10 +68,10 @@ export class Operacion {
   static TRANSFERENCIA = "TRANSFERECIA";
   static PAGOIMP="PAGOS-IMP";
   
-  constructor(monto, fecha, tipo) {
+  constructor(monto, tipo, fecha ) {
     this.monto = monto;
-    this.fecha = fecha;
     this.tipo = tipo;
+    this.fecha = fecha;
   }
 }
 

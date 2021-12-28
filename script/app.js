@@ -1,18 +1,13 @@
 import { Usuario, Cuenta, Operacion } from "./Clases.js";
+const DATE_FORMAT = "DD/MM/YYYY HH:mm:ss"
 var user = null;
 var access = false;
 const USER_KEY = "USER_KEY";
 var cuenta1 = null;
 var usuario1 = null;
 
-//const DATE_FORMAT = "DD/MM/YYYY HH:mm:ss"
-//dayjs().format(DATE_FORMAT)
-
-function formatDate(date) {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${day}/${month}/${year}`;
+function formatDate(date){
+  return dayjs(date).format(DATE_FORMAT)
 }
 
 function checkLogin() {
@@ -127,52 +122,51 @@ function envioDeposito(event) {
 function userNameLabel(container, nameUser) {
   container.append(`Bienvenido ${nameUser}`);
 }
-
-//function obtenerOperaciones() {
-//  $.get("../data/operaciones.json", (data) => {
-//   data.obtenerHistorico().forEach((element) => {
-//     listaOperaciones.push(
-//       new Operacion(element.monto, element.tipo, element.fecha)
-//    );
-//    $("#").append(
-//      `<div class="operacion">
-//     <div class="data">
-//       <span class="fecha">${formatDate(op.fecha)}</span>
-//       <span class="tipo">${op.tipo}</span>
-//    </div>
-//    <div class="monto">$${op.monto}</div>
-// </div>`
-//  );
-//});
-//});
-//}
+function showOperaciones(){
+  $.get("../data/operaciones.json", (data) => {
+    data.obtenerHistorico().forEach((element) => {
+    listaOperaciones.push(
+      new Operacion(element.monto, element.fecha, element.tipo)
+  );
+    $("#operaciones-body").append(
+     `<div class="operacion">
+     <div class="data">
+      <span class="fecha">${formatDate(op.fecha)}</span>
+      <span class="tipo">${op.tipo}</span>
+    </div>
+   <div class="monto">$${op.monto}</div>
+ </div>`
+  );
+});
+});
+}
 
 function initData() {
   usuario1 = new Usuario("Ricardo", "Jhonson", "rick6", "1234");
   cuenta1 = new Cuenta(usuario1, 0, Cuenta.generarNumeroCuenta());
 
   // Agrego operaciones para demostracion
-  cuenta1.addOperacion(300, Operacion.DEPOSITO, new Date(2020, 1, 24));
-  cuenta1.addOperacion(1500, Operacion.DEPOSITO, new Date(2020, 2, 14));
-  cuenta1.addOperacion(10000, Operacion.DEPOSITO, new Date(2020, 3, 15));
-  cuenta1.addOperacion(1850, Operacion.DEPOSITO, new Date(2020, 4, 8));
-  cuenta1.addOperacion(3500, Operacion.DEPOSITO, new Date(2020, 5, 4));
+  cuenta1.addOperacion(300, Operacion.DEPOSITO, new Date(2020, 1, 24, 20,30,15));
+  cuenta1.addOperacion(1500, Operacion.DEPOSITO, new Date(2020, 2, 14, 19,25,10 ));
+  cuenta1.addOperacion(10000, Operacion.DEPOSITO, new Date(2020, 3, 15, 14,15,25));
+  cuenta1.addOperacion(1850, Operacion.DEPOSITO, new Date(2020, 4, 8, 11,29,45));
+  cuenta1.addOperacion(3500, Operacion.DEPOSITO, new Date(2020, 5, 4, 12,10,45));
 }
 
-function showOperaciones(cuenta) {
-  const container = $("#operaciones-body");
-  cuenta1.obtenerHistorico().forEach((op) => {
-    container.append(
-      `<div class="operacion">
-        <div class="data">
-          <span class="fecha">${op.fecha}</span>
-          <span class="tipo">${op.tipo}</span>
-        </div>
-        <div class="monto">$${op.monto}</div>
-      </div>`
-    );
-  });
-}
+// function showOperaciones(cuenta) {
+//   const container = $("#operaciones-body");
+//   cuenta1.obtenerHistorico().forEach((op) => {
+//     container.append(
+//       `<div class="operacion">
+//         <div class="data">
+//           <span class="fecha">${formatDate(op.fecha)}</span>
+//           <span class="tipo">${op.tipo}</span>
+//         </div>
+//         <div class="monto">$${op.monto}</div>
+//       </div>`
+//     );
+//   });
+// }
 
 function showSaldo() {
   $("#saldo-cuenta").append(`Saldo $ ${cuenta1.saldo}`);
