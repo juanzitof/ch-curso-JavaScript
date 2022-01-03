@@ -1,33 +1,33 @@
 [
   {
-    "Monto": "10000",
-    "Fecha": "2021-01-01",
-    "Tipo": "Deposito"
+    "monto": 10000,
+    "fecha": "2021-01-01 20:20:20",
+    "tipo": "DEPOSITO"
   },
   {
-    "Monto": "14000",
-    "Fecha": "2021-02-01",
-    "Tipo": "Deposito"
+    "monto": 14000,
+    "fecha": "2021-02-01 17:14:16",
+    "tipo": "DEPOSITO"
   },
   {
-    "Monto": "16000",
-    "Fecha": "2021-03-01",
-    "Tipo": "Deposito"
+    "monto": 16000,
+    "fecha": "2021-03-01 15:20:55",
+    "tipo": "DEPOSITO"
   },
   {
-    "Monto": "10600",
-    "Fecha": "2021-04-01",
-    "Tipo": "Deposito"
+    "monto": 10600,
+    "fecha": "2021-04-01 14:36:43",
+    "tipo": "DEPOSITO"
   },
   {
-    "Monto": "17000",
-    "Fecha": "2021-05-01",
-    "Tipo": "Deposito"
+    "monto": 17000,
+    "fecha": "2021-05-01 15:22:53",
+    "tipo": "DEPOSITO"
   },
   {
-    "Monto": "2300",
-    "Fecha": "2021-06-01",
-    "Tipo": "Deposito"
+    "monto": 2300,
+    "fecha": "2021-06-01 15:44:15",
+    "tipo": "DEPOSITO"
   
   }
 ]

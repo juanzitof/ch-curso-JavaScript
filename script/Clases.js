@@ -41,7 +41,7 @@ export class Cuenta {
   }
 
   addOperacion(monto, tipo, fecha) {
-    let operacion = new Operacion(monto, tipo, fecha );
+    let operacion = new Operacion(monto, tipo, dayjs(fecha) );
     this.operaciones.push(operacion);
     this.saldo += monto;
   }
@@ -49,7 +49,6 @@ export class Cuenta {
   getSaldo(){
     let estadoCuenta = this.saldo
     this.operaciones.forEach((operacion)=>{
-      console.log(operacion.monto)
      estadoCuenta = estadoCuenta + operacion.monto
     })
     return estadoCuenta

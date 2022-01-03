@@ -11,15 +11,27 @@ function formatDate(date){
 }
 
 function checkLogin() {
+  toggleLoading(true);
   const data = localStorage.getItem(USER_KEY);
 
   if (data) {
     access = true;
     const objData = JSON.parse(data);
-    closeModal();
+    
+    printuserNameLabel(`${objData.nombre} ${objData.apellido}`);
+
+    fetchOperaciones(()=>{
+      showSaldo();
+      showOperaciones();
+
+      cambiarPage(`home-page`)
+      toggleLoading(false)
+    });
+    
+  } else {
+    toggleLoading(false)
+    cambiarPage(`login-page`)
   }
-  var body = document.getElementsByTagName("body")[0];
-  body.style.display = "block";
 }
 
 //Mostra modal de Ingreso
@@ -56,9 +68,6 @@ function closeDeposito() {
 
 function setupEvent() {
   //Modal de ingreso
-  $("#btnModal").on("click", openModal);
-  $("#close").on("click", closeModal);
-
   var form = document.getElementById("dataForm");
   form.addEventListener("submit", enviarFormulario);
 
@@ -68,6 +77,11 @@ function setupEvent() {
 
   var formDepo = document.getElementById("dataDepo");
   formDepo.addEventListener("submit", envioDeposito);
+
+
+  // Botones 
+  $("#consulta-saldo").on("click", showSaldo);
+  $("#dolar").on("click", consultaValorDolar);
 }
 
 function enviarFormulario(event) {
@@ -79,9 +93,10 @@ function enviarFormulario(event) {
   const obtDataPass = data.get("password");
 
   if (usuario1.ingreso(obtDataName, obtDataPass)) {
+    toggleLoading(true);
     const userData = {
-      name: usuario1.nombre,
-      lastName: usuario1.apellido,
+      nombre: usuario1.nombre,
+      apellido: usuario1.apellido,
       userName: obtDataName,
       numeroCuenta: cuenta1.numeroCuenta,
     };
@@ -90,16 +105,35 @@ function enviarFormulario(event) {
     localStorage.setItem(USER_KEY, userDataString);
 
     dataForm.reset();
-    var print = $("#nombre");
-
-    userNameLabel(print, obtDataName);
-    closeModal();
     
+    
+    printuserNameLabel(`${userData.name} ${userData.lastName}`);
+    
+    closeModal();
+    fetchOperaciones(()=> {
+      showSaldo();
+      showOperaciones();
+      cambiarPage(`home-page`)
+      toggleLoading(false);
+    });
+      
 
   } else {
     alert("Password incorrecto");
     return;
   }
+}
+
+function fetchOperaciones(onFinish) {
+  $.get("../data/operaciones.json", (data) => {
+    console.log(data)
+    data.forEach(op => cuenta1.addOperacion(op.monto, op.tipo, op.fecha ))
+
+    setTimeout(() => {
+      onFinish()
+    }, 1000)
+    
+})
 }
 
 function envioDeposito(event) {
@@ -112,22 +146,20 @@ function envioDeposito(event) {
     const deposito = parseInt($("#cant-depositar").val());
     
     cuenta1.addOperacion(deposito, Operacion.DEPOSITO, new Date())
-    cuenta1.saldo
+    showOperaciones();
   }
   closeDeposito();
   alert("Su deposito a sigo exitoso!");
 }
 
 //Imprimir
-function userNameLabel(container, nameUser) {
-  container.append(`Bienvenido ${nameUser}`);
+function printuserNameLabel(name) {
+  $("#nombre").html(`Bienvenido ${name}`);
 }
+
 function showOperaciones(){
-  $.get("../data/operaciones.json", (data) => {
-    data.obtenerHistorico().forEach((element) => {
-    listaOperaciones.push(
-      new Operacion(element.monto, element.fecha, element.tipo)
-  );
+  $("#operaciones-body").html("")
+    cuenta1.obtenerHistorico().forEach((op) => {
     $("#operaciones-body").append(
      `<div class="operacion">
      <div class="data">
@@ -138,7 +170,6 @@ function showOperaciones(){
  </div>`
   );
 });
-});
 }
 
 function initData() {
@@ -146,30 +177,16 @@ function initData() {
   cuenta1 = new Cuenta(usuario1, 0, Cuenta.generarNumeroCuenta());
 
   // Agrego operaciones para demostracion
-  cuenta1.addOperacion(300, Operacion.DEPOSITO, new Date(2020, 1, 24, 20,30,15));
-  cuenta1.addOperacion(1500, Operacion.DEPOSITO, new Date(2020, 2, 14, 19,25,10 ));
-  cuenta1.addOperacion(10000, Operacion.DEPOSITO, new Date(2020, 3, 15, 14,15,25));
-  cuenta1.addOperacion(1850, Operacion.DEPOSITO, new Date(2020, 4, 8, 11,29,45));
-  cuenta1.addOperacion(3500, Operacion.DEPOSITO, new Date(2020, 5, 4, 12,10,45));
+  // cuenta1.addOperacion(300, Operacion.DEPOSITO, new Date(2020, 1, 24, 20,30,15));
+  // cuenta1.addOperacion(1500, Operacion.DEPOSITO, new Date(2020, 2, 14, 19,25,10 ));
+  // cuenta1.addOperacion(10000, Operacion.DEPOSITO, new Date(2020, 3, 15, 14,15,25));
+  // cuenta1.addOperacion(1850, Operacion.DEPOSITO, new Date(2020, 4, 8, 11,29,45));
+  // cuenta1.addOperacion(3500, Operacion.DEPOSITO, new Date(2020, 5, 4, 12,10,45));
 }
 
-// function showOperaciones(cuenta) {
-//   const container = $("#operaciones-body");
-//   cuenta1.obtenerHistorico().forEach((op) => {
-//     container.append(
-//       `<div class="operacion">
-//         <div class="data">
-//           <span class="fecha">${formatDate(op.fecha)}</span>
-//           <span class="tipo">${op.tipo}</span>
-//         </div>
-//         <div class="monto">$${op.monto}</div>
-//       </div>`
-//     );
-//   });
-// }
 
 function showSaldo() {
-  $("#saldo-cuenta").append(`Saldo $ ${cuenta1.saldo}`);
+  $("#saldo-cuenta").html(`$${cuenta1.saldo}`);
 }
 
 //LLamado a la api
@@ -189,12 +206,36 @@ function consultaValorDolar() {
   });
 }
 
-// Botones 
-$("#consulta-saldo").on("click", showSaldo);
-$("#dolar").on("click", consultaValorDolar);
-$("#ultimos-movi").on("click", showOperaciones);
+const toggleLoading = (visible) => {
+  if (visible) {
+    $('#main-loading').fadeIn()
+  } else {
+    $('#main-loading').fadeOut()
+  }
+}
 
+function logout (){
+  toggleLoading(true);
+  localStorage.setItem(USER_KEY, null);
+  
+
+
+}
 //LLamados de los eventos
 initData();
 setupEvent();
 checkLogin();
+
+function cambiarPage(idPage) {
+  $(".page").fadeOut(500, () => {
+    $(`#${idPage}`).fadeIn(500);
+  })
+}
+
+// logout 
+//    - mostrar loading
+//    - limpiar local Storage
+//    - ocultar home-page
+//    - mostrar login-page
+//    - ocultar loading
+   

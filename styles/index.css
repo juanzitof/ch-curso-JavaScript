@@ -1,26 +1,64 @@
 body {
   margin: 0;
-
-  font-family: "Source Sans Pro", sans-serif;
-
+  font-family: "Arial", sans-serif;
   background-color: #2a333d;
+}
+
+#home-page {
   display: none;
+}
+
+#login-page {
+  display: none;
+  margin-top: 20%;
+}
+
+#main-loading {
+  position: absolute;
+  display: none;
+}
+
+#main-loading .loading-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 80px;
+  color: #fff;
+}
+
+#main-loading span {
+  animation: rotating 4s linear infinite;
+  -webkit-animation: rotating 4s linear infinite;
 }
 
 .header {
   display: flex;
   width: 65%;
-  margin: 7% auto 0;
+  margin: 15px auto 0;
   margin-bottom: 15px;
   justify-content: space-between;
+  align-items: center;
 }
 
-.align-left {
+.usuario-container {
   display: flex;
   padding: 8px;
-  align-items: center;
-  
 }
+
+#btn-logout {
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 /* Estilos de la pagina principal */
 .white-container {
   display: flex;
@@ -46,8 +84,6 @@ body {
   padding-left: 24px;
   margin: 0;
   margin-left: -30px;
-
-  font-family: "Source Sans Pro";
   font-size: 32px;
   font-weight: normal;
 
@@ -93,17 +129,14 @@ body {
   padding: 0;
   margin: 20px 0;
   margin-bottom: 30px;
-
-  font-family: "Source Sans Pro";
   font-size: 16px;
 
   cursor: pointer;
-  -webkit-transition: all 0.6s ease-in-out;
-  -moz-transition: all 0.6s ease-in-out;
-  -o-transition: all 0.6s ease-in-out;
-  transition: all 0.6s ease-in-out;
+  -webkit-transition: padding 0.6s ease-in-out;
+  -moz-transition: padding 0.6s ease-in-out;
+  -o-transition: padding 0.6s ease-in-out;
+  transition: padding 0.6s ease-in-out;
   text-align: left;
-  
 
   color: #666;
   border: 0;
@@ -111,29 +144,30 @@ body {
 }
 
 .links:hover {
-  margin-left: 10px;
-
+  padding-left: 5px;
+  font-weight: bold;
   color: #2cc197;
 }
 
+.saldo-container span {
+  display: block;
+  font-size: 22px;
+}
+
 #saldo-cuenta {
-  margin-top: 5%;
-  margin-bottom: 5%;
   overflow: hidden;
-
-  font-size: 60px;
-
   text-align: center;
   text-overflow: ellipsis;
+  font-size: 60px;
+  line-height: 50px;
 }
 
 #limite-extraccion {
   overflow: hidden;
-
   font-size: 15px;
-
   text-overflow: ellipsis;
 }
+
 /* Contenedor del modal */
 .modalContainer {
   display: none;
@@ -156,18 +190,18 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 /* Estilos de los inputs */
-.input-NameUsu{
+.input-NameUsu {
   margin-left: 15px;
   padding-top: 5px;
   margin-bottom: 15px;
 }
-.input-Passw{
+.input-Passw {
   margin-left: 70px;
   padding-top: 5px;
   margin-bottom: 15px;
 }
 
-.input-Count{
+.input-Count {
   margin-left: 20px;
   margin-top: 10px;
   margin-bottom: 20px;
@@ -192,7 +226,7 @@ body {
   margin-left: 20px;
   color: #888;
 }
-.operaciones{
+.operaciones {
   background: white;
   margin: 50px auto;
   padding: 25px;
@@ -203,7 +237,7 @@ body {
 .operacion .monto {
   font-weight: bold;
 }
-.table{
+.table {
   background-color: whitesmoke;
 }
 
@@ -215,13 +249,13 @@ body {
   left: 0;
   right: 0;
   top: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: none;
 }
 #modal {
   margin: 10% auto;
   max-width: 400px;
-  background-color: #FFF;
+  background-color: #fff;
   min-height: 200px;
   border-radius: 15px;
   display: none;
@@ -249,13 +283,13 @@ body {
   left: 0;
   right: 0;
   top: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: none;
 }
 #modalD {
   margin: 10% auto;
   max-width: 500px;
-  background-color: #FFF;
+  background-color: #fff;
   min-height: 300px;
   border-radius: 8px;
   display: none;
@@ -270,7 +304,25 @@ body {
   cursor: pointer;
 }
 
-.style-dolar h1{
+.style-dolar h1 {
   font-size: 16px;
   align-content: center;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
