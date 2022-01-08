@@ -1,10 +1,12 @@
-import { Usuario, Cuenta, Operacion } from "./Clases.js";
+import { User, Count, Operation } from "./Clases.js";
+
 const DATE_FORMAT = "DD/MM/YYYY HH:mm:ss"
 var user = null;
 var access = false;
 const USER_KEY = "USER_KEY";
-var cuenta1 = null;
-var usuario1 = null;
+var count1 = null;
+var user1 = null;
+
 
 function formatDate(date){
   return dayjs(date).format(DATE_FORMAT)
@@ -12,25 +14,26 @@ function formatDate(date){
 
 function checkLogin() {
   toggleLoading(true);
-  const data = localStorage.getItem(USER_KEY);
 
+  const data = localStorage.getItem(USER_KEY);
+  
   if (data) {
     access = true;
     const objData = JSON.parse(data);
-    
-    printuserNameLabel(`${objData.nombre} ${objData.apellido}`);
 
-    fetchOperaciones(()=>{
-      showSaldo();
-      showOperaciones();
+    printuserNameLabel(`${objData.name}`);
 
-      cambiarPage(`home-page`)
+    fetchOperations(()=>{
+      showBalance();
+      showOperations();
+
+      changePage(`home-page`)
       toggleLoading(false)
     });
     
   } else {
     toggleLoading(false)
-    cambiarPage(`login-page`)
+    changePage(`login-page`)
   }
 }
 
@@ -50,17 +53,17 @@ function closeModal() {
 }
 
 //Mostrar modal de deposito
-function openDeposito() {
-  $("#sombraD").fadeIn(100, () => {
-    $("#modalD").fadeIn(400);
+function openModalDeposit() {
+  $("#shadow").fadeIn(100, () => {
+    $("#modal-deposit").fadeIn(400);
   });
 }
 
 //Cerrar modal de deposito
-function closeDeposito() {
-  $("#modalD").fadeOut(400, () => {
-    $("#formDeposito").trigger("reset");
-    $("#sombraD").fadeOut(100);
+function closeDeposit() {
+  $("#modal-deposit").fadeOut(400, () => {
+    $("#data-deposit").trigger("reset");
+    $("#shadow").fadeOut(100);
   });
 }
 
@@ -69,36 +72,37 @@ function closeDeposito() {
 function setupEvent() {
   //Modal de ingreso
   var form = document.getElementById("dataForm");
-  form.addEventListener("submit", enviarFormulario);
+  form.addEventListener("submit", seddingForm);
 
   //Modal de deposito
-  $("#deposito").on("click", openDeposito);
-  $("#closeD").on("click", closeDeposito);
+  $("#open-deposit").on("click", openModalDeposit);
+  $("#close-modal").on("click", closeDeposit);
 
-  var formDepo = document.getElementById("dataDepo");
-  formDepo.addEventListener("submit", envioDeposito);
+  var formDeposit = document.getElementById("data-deposit");
+  formDeposit.addEventListener("submit", seddingDeposit);
 
 
   // Botones 
-  $("#consulta-saldo").on("click", showSaldo);
-  $("#dolar").on("click", consultaValorDolar);
+  $("#consult-balance").on("click", showBalance);
+  $("#btn-dollar").on("click", consultDollar);
+  //$("#btn-logout").on("click", loginOut)
 }
 
-function enviarFormulario(event) {
+function seddingForm(event) {
   event.preventDefault();
   const form = document.getElementById("dataForm");
 
   const data = new FormData(form);
-  const obtDataName = data.get("userName");
-  const obtDataPass = data.get("password");
+  const dataUserName = data.get("userName");
+  const dataPassword = data.get("password");
 
-  if (usuario1.ingreso(obtDataName, obtDataPass)) {
+  if (user1.entry(dataUserName, dataPassword)) {
     toggleLoading(true);
     const userData = {
-      nombre: usuario1.nombre,
-      apellido: usuario1.apellido,
-      userName: obtDataName,
-      numeroCuenta: cuenta1.numeroCuenta,
+      name: user1.name,
+      lastname: user1.lastname,
+      username: dataUserName,
+      accountNumber: count1.accountNumber,
     };
 
     var userDataString = JSON.stringify(userData);
@@ -107,13 +111,13 @@ function enviarFormulario(event) {
     dataForm.reset();
     
     
-    printuserNameLabel(`${userData.name} ${userData.lastName}`);
+    printuserNameLabel(`${userData.name} ${userData.lastname}`);
     
     closeModal();
-    fetchOperaciones(()=> {
-      showSaldo();
-      showOperaciones();
-      cambiarPage(`home-page`)
+    fetchOperations(()=> {
+      showBalance();
+      showOperations();
+      changePage(`home-page`);
       toggleLoading(false);
     });
       
@@ -124,10 +128,9 @@ function enviarFormulario(event) {
   }
 }
 
-function fetchOperaciones(onFinish) {
+function fetchOperations(onFinish) {
   $.get("../data/operaciones.json", (data) => {
-    console.log(data)
-    data.forEach(op => cuenta1.addOperacion(op.monto, op.tipo, op.fecha ))
+    data.forEach(op => count1.addOperations(op.amount, op.type, op.date ))
 
     setTimeout(() => {
       onFinish()
@@ -136,67 +139,60 @@ function fetchOperaciones(onFinish) {
 })
 }
 
-function envioDeposito(event) {
+function seddingDeposit(event) {
   event.preventDefault();
-  const formDepo = document.getElementById("dataDepo");
-  const dataDepo = new FormData(formDepo);
-  const deposito = dataDepo.get("cant-depositar");
+  const formDeposit = document.getElementById("data-deposit");
+  const dataDeposit = new FormData(formDeposit);
+  const deposit = dataDeposit.get("amount-Deposit");
   
-  if(deposito && deposito !== "" && !isNaN(deposito)){
-    const deposito = parseInt($("#cant-depositar").val());
+  if(deposit && deposit !== "" && !isNaN(deposit)){
+    const deposit = parseInt($("#amount-Deposit").val());
     
-    cuenta1.addOperacion(deposito, Operacion.DEPOSITO, new Date())
-    showOperaciones();
+    count1.addOperations(deposit, Operation.DEPOSIT, new Date())
+    showOperations();
   }
-  closeDeposito();
+  closeDeposit();
   alert("Su deposito a sigo exitoso!");
 }
 
 //Imprimir
 function printuserNameLabel(name) {
-  $("#nombre").html(`Bienvenido ${name}`);
+  $("#name-body").html(`Bienvenido ${name}`);
 }
 
-function showOperaciones(){
-  $("#operaciones-body").html("")
-    cuenta1.obtenerHistorico().forEach((op) => {
-    $("#operaciones-body").append(
+function showOperations(){
+  $("#operations").html("")
+    count1.getOperations().forEach((op) => {
+    $("#operations").append(
      `<div class="operacion">
      <div class="data">
-      <span class="fecha">${formatDate(op.fecha)}</span>
-      <span class="tipo">${op.tipo}</span>
+      <span class="fecha">${formatDate(op.date)}</span>
+      <span class="tipo">${op.type}</span>
     </div>
-   <div class="monto">$${op.monto}</div>
+   <div class="monto">$${op.amount}</div>
  </div>`
   );
 });
 }
 
 function initData() {
-  usuario1 = new Usuario("Ricardo", "Jhonson", "rick6", "1234");
-  cuenta1 = new Cuenta(usuario1, 0, Cuenta.generarNumeroCuenta());
-
-  // Agrego operaciones para demostracion
-  // cuenta1.addOperacion(300, Operacion.DEPOSITO, new Date(2020, 1, 24, 20,30,15));
-  // cuenta1.addOperacion(1500, Operacion.DEPOSITO, new Date(2020, 2, 14, 19,25,10 ));
-  // cuenta1.addOperacion(10000, Operacion.DEPOSITO, new Date(2020, 3, 15, 14,15,25));
-  // cuenta1.addOperacion(1850, Operacion.DEPOSITO, new Date(2020, 4, 8, 11,29,45));
-  // cuenta1.addOperacion(3500, Operacion.DEPOSITO, new Date(2020, 5, 4, 12,10,45));
+  user1 = new User("Ricardo", "Jhonson", "rick6", "1234");
+  count1 = new Count(user1, 0, Count.generateAccountNumber());
 }
 
 
-function showSaldo() {
-  $("#saldo-cuenta").html(`$${cuenta1.saldo}`);
+function showBalance() {
+  $("#balance-count").html(`$${count1.balance}`);
 }
 
 //LLamado a la api
-function consultaValorDolar() {
+function consultDollar() {
   const urlDolar = "https://api.bluelytics.com.ar/v2/latest";
   $.ajax({
     method: "GET",
     url: urlDolar,
     success: function (valorDolar) {
-      $("#operacion-dolar").append(
+      $("#operation-dollar").html(
         `<div class="style-dolar"><h1>Dolar oficial venta $ ${valorDolar.oficial.value_sell}</h1>
         <h1>Dolar oficial compra $ ${valorDolar.oficial.value_buy}</h1>
       <h1>Dolar blue venta  $ ${valorDolar.blue.value_sell}</h1>
@@ -214,19 +210,21 @@ const toggleLoading = (visible) => {
   }
 }
 
-function logout (){
-  toggleLoading(true);
-  localStorage.setItem(USER_KEY, null);
-  
+//  function loginOut (){
+//   toggleLoading(true);
+//   localStorage.setItem(USER_KEY, null);
+//   changePage(`home-page`);
+//   changePage(`login-page`);
+//   toggleLoading(false);
 
+// }
 
-}
 //LLamados de los eventos
 initData();
 setupEvent();
 checkLogin();
 
-function cambiarPage(idPage) {
+function changePage(idPage) {
   $(".page").fadeOut(500, () => {
     $(`#${idPage}`).fadeIn(500);
   })

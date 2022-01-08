@@ -27,32 +27,30 @@
     <div class="page" id="home-page">
       <div class="header">
         <div class="usuario-container">
-          <span id="nombre"></span>
+          <span id="name-body"></span>
         </div>
 
-        <span id="btn-logout">Logout</span>
+        <button id="btn-logout">Logout</button>
       </div>
       <div class="white-container">
         <div class="menu-container">
           <h1 class="you-count">Tu cuenta</h1>
-          <button class="links" id="deposito">Depositar</button>
-          <button class="links" id="consulta-saldo">Consultar saldo</button>
-          <!--  <button class="links">Pagar servicios</button>-->
-          <button class="links" id="dolar">Consulta valor del dolar</button>
+          <button class="links" id="open-deposit">Depositar</button>
+          <button class="links" id="consult-balance">Consultar saldo</button>
+          <button class="links" id="btn-dollar">Consulta valor del dolar</button>
         </div>
         <div class="green-container">
           <div class="account-info">
             <p class="saldo-container">
-              <span>Saldo:</span><span id="saldo-cuenta">$0</span>
+              <span>Saldo:</span><span id="balance-count">$0</span>
             </p>
 
-            <span id="operacion-dolar"></span>
-            <!--<p id="limite-extraccion">Tu límite de extracción es:</p> -->
+            <span id="operation-dollar"></span>
           </div>
         </div>
       </div>
 
-      <div id="operaciones-body" class="operaciones"></div>
+      <div id="operations" class="operaciones"></div>
     </div>
 
     <div class="page" id="login-page">
@@ -81,10 +79,10 @@
       </div>
     </div>
 
-    <div id="sombraD">
-      <div id="modalD">
-        <span id="closeD">X</span>
-        <form id="dataDepo">
+    <div id="shadow">
+      <div id="modal-deposit">
+        <span id="close-modal">X</span>
+        <form id="data-deposit">
           <h1 class="title-form">Deposito</h1>
           <br />
           <div>
@@ -92,8 +90,8 @@
             <input
               type="number"
               class="input-Count"
-              id="cant-depositar"
-              name="cant-depositar"
+              id="amount-Deposit"
+              name="amount-Deposit"
             />
           </div>
 
