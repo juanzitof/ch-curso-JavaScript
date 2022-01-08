@@ -85,7 +85,7 @@ function setupEvent() {
   // Botones 
   $("#consult-balance").on("click", showBalance);
   $("#btn-dollar").on("click", consultDollar);
-  //$("#btn-logout").on("click", loginOut)
+  $("#btn-logout").on("click", loginOut)
 }
 
 function seddingForm(event) {
@@ -123,7 +123,13 @@ function seddingForm(event) {
       
 
   } else {
-    alert("Password incorrecto");
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Password Incorrecto!',
+      footer: 'Intente nuevamente!'
+    })
+   
     return;
   }
 }
@@ -152,7 +158,13 @@ function seddingDeposit(event) {
     showOperations();
   }
   closeDeposit();
-  alert("Su deposito a sigo exitoso!");
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Su deposito a sido exitoso',
+    showConfirmButton: false,
+    timer: 1500
+  })
 }
 
 //Imprimir
@@ -210,14 +222,13 @@ const toggleLoading = (visible) => {
   }
 }
 
-//  function loginOut (){
-//   toggleLoading(true);
-//   localStorage.setItem(USER_KEY, null);
-//   changePage(`home-page`);
-//   changePage(`login-page`);
-//   toggleLoading(false);
+ function loginOut (){
+  toggleLoading(true);
+  const deleteStorage = localStorage.clear();
+  changePage(`login-page`);
+  toggleLoading(false);
 
-// }
+ }
 
 //LLamados de los eventos
 initData();
@@ -230,10 +241,4 @@ function changePage(idPage) {
   })
 }
 
-// logout 
-//    - mostrar loading
-//    - limpiar local Storage
-//    - ocultar home-page
-//    - mostrar login-page
-//    - ocultar loading
    

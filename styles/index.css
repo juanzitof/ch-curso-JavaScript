@@ -53,7 +53,6 @@ body {
 }
 
 #btn-logout {
-  color: #fff;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
@@ -303,6 +302,10 @@ body {
 .style-dolar h1 {
   font-size: 16px;
   align-content: center;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: gray;
 }
 
 @keyframes rotating {
