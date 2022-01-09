@@ -1,31 +1,17 @@
 export class User {
-  constructor(name, lastname, username, password) {
+  constructor(name, lastname, username) {
     this.name = name;
     this.lastname = lastname;
     this.username = username;
-    this.password = password;
-    this.count = null;
+    this.account = null;
   }
 
-  setCount(count) {
-    this.count = count;
-  }
-
-  validation(username, password) {
-    if (this.password === password && this.username === username) return true;
-    else return false;
-  }
-
-  entry(username, password) {
-    if (this.validation(username, password)) {
-      return true;
-    } else {
-      return false;
-    }
+  setCount(account) {
+    this.account = account;
   }
 }
 
-export class Count {
+export class Account  {
   constructor(user, starAmount, accountNumber) {
     this.balance = starAmount || 0;
     this.operations = [];
@@ -59,11 +45,15 @@ export class Count {
     })
 
   }
+
+  clearAccount(){
+  this.operations = [];
+  }
 }
 
 export class Operation {
   static DEPOSIT = "DEPOSITO";
-  static TRANSFERENCIA = "TRANSFERECIA";
+  static TRANSFERENCIA = "TRANSFERENCIA";
   static PAGOIMP="PAGOS-IMP";
   
   constructor(amount, type, date ) {

@@ -1,44 +1,26 @@
 [
   {
-    "id": "1",
-   "Nombre": "Maria",
-   "Apellido": "Aveldano",
-    "UserName": "Mavelda12"
+    "id": 1,
+    "name": "Maria",
+    "lastname": "Aveldano",
+    "username": "mavelda12",
+    "password": "1212",
+    "accountNumber": "12345678"
   },
   {
-    "id": "2",
-   "Nombre": "Jose",
-   "Apellido": "Esposito",
-    "UserName": "JoseEsp",
-    "cuenta": 1231231414
-
+    "id": 2,
+    "name": "Jose",
+    "lastname": "Esposito",
+    "username": "josesp",
+    "password": "3619",
+    "accountNumber": "23456789"
   },
   {
-    "id": "3",
-   "Nombre": "Alberto",
-   "Apellido": "Fernandez",
-    "UserName": "Albert",
-    "cuenta": 1231231414
-  },
-  {
-    "id": "4",
-   "Nombre": "",
-   "Apellido": "",
-    "UserName": 4,
-    "cuenta": 1231231414
-  },
-  {
-    "id": "5",
-   "Nombre": "",
-   "Apellido": "2021-05-01",
-    "UserName": 5,
-    "cuenta": 1231231414
-  },
-  {
-    "id": "6",
-   "Nombre": "",
-   "Apellido": "2021-06-01",
-    "UserName": 6,
-    "cuenta": 1231231414
+    "id": 3,
+    "name": "Jacinto",
+    "lastname": "Luque",
+    "username": "jacinlu",
+    "password": "6582",
+    "accountNumber": "34567890"
   }
 ]

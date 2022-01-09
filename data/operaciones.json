@@ -1,33 +1,110 @@
 [
   {
-    "amount": 10000,
-    "date": "2021-01-01 20:20:20",
-    "type": "DEPOSITO"
+    "amount": 6529.67,
+    "type": "DEPOSITO",
+    "date": "2021-09-05 07:41:38",
+    "account": "12345678"
   },
   {
-    "amount": 14000,
-    "date": "2021-02-01 17:14:16",
-    "type": "DEPOSITO"
+    "amount": -2732.07,
+    "type": "PAGOS-IMP",
+    "date": "2021-02-04 10:18:00",
+    "account": "12345678"
   },
   {
-    "amount": 16000,
-    "date": "2021-03-01 15:20:55",
-    "type": "DEPOSITO"
+    "amount": -363.93,
+    "type": "TRANSFERENCIA",
+    "date": "2021-05-17 12:58:18",
+    "account": "23456789"
   },
   {
-    "amount": 10600,
-    "date": "2021-04-01 14:36:43",
-    "type": "DEPOSITO"
+    "amount": 15484.48,
+    "type": "DEPOSITO",
+    "date": "2021-11-21 03:48:13",
+    "account": "12345678"
   },
   {
-    "amount": 17000,
-    "date": "2021-05-01 15:22:53",
-    "type": "DEPOSITO"
+    "amount": -693.42,
+    "type": "PAGOS-IMP",
+    "date": "2020-10-19 03:18:09",
+    "account": "23456789"
   },
   {
-    "amount": 2300,
-    "date": "2021-06-01 15:44:15",
-    "type": "DEPOSITO"
-  
+    "amount": -2955.88,
+    "type": "PAGOS-IMP",
+    "date": "2021-03-07 05:50:01",
+    "account": "23456789"
+  },
+  {
+    "amount": -381.39,
+    "type": "TRANSFERENCIA",
+    "date": "2020-06-11 11:14:02",
+    "account": "12345678"
+  },
+  {
+    "amount": 22999.91,
+    "type": "DEPOSITO",
+    "date": "2020-10-28 01:18:02",
+    "account": "12345678"
+  },
+  {
+    "amount": -1380.11,
+    "type": "TRANSFERENCIA",
+    "date": "2021-07-01 06:11:50",
+    "account": "23456789"
+  },
+  {
+    "amount": -466.62,
+    "type": "TRANSFERENCIA",
+    "date": "2020-04-26 06:19:24",
+    "account": "23456789"
+  },
+  {
+    "amount": -3401.11,
+    "type": "TRANSFERENCIA",
+    "date": "2021-07-10 04:16:52",
+    "account": "12345678"
+  },
+  {
+    "amount": -52.69,
+    "type": "PAGOS-IMP",
+    "date": "2020-08-22 08:09:33",
+    "account": "12345678"
+  },
+  {
+    "amount": -1131.88,
+    "type": "PAGOS-IMP",
+    "date": "2020-05-11 03:55:03",
+    "account": "23456789"
+  },
+  {
+    "amount": -682.47,
+    "type": "PAGOS-IMP",
+    "date": "2020-10-03 09:04:54",
+    "account": "12345678"
+  },
+  {
+    "amount": 20038.42,
+    "type": "DEPOSITO",
+    "date": "2020-05-20 04:04:24",
+    "account": "12345678"
+  },
+  {
+    "amount": 7288.87,
+    "type": "DEPOSITO",
+    "date": "2020-05-07 08:28:54",
+    "account": "12345678"
+  },
+  {
+    "amount": 14600.61,
+    "type": "DEPOSITO",
+    "date": "2020-01-12 11:08:27",
+    "account": "23456789"
+  },
+  {
+    "amount": -1676.74,
+    "type": "PAGOS-IMP",
+    "date": "2020-10-21 07:40:15",
+    "account": "23456789"
   }
 ]

@@ -221,7 +221,7 @@ body {
   margin-left: 20px;
   color: #888;
 }
-.operaciones {
+.operaciones  {
   background: white;
   margin: 50px auto;
   padding: 25px;
@@ -236,6 +236,13 @@ body {
   background-color: whitesmoke;
 }
 
+.operation-empty{
+  text-align: center;
+  color: #888;
+}
+.msg-empty{
+  font-size: 14px;
+}
 /* Modales */
 #sombra {
   position: absolute;
